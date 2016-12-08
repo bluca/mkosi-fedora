@@ -12,12 +12,17 @@ BuildArch:      noarch
 Requires:       python3 >= 3.5
 # for subprocess.run
 
+Recommends:     dnf
 Recommends:     debootstrap
 Recommends:     arch-install-scripts
+Recommends:     edk2-ovmf
+Recommends:     gnupg
 Recommends:     xz
+Recommends:     tar
 Recommends:     btrfs-progs
 Recommends:     dosfstools
-Recommends:     edk2-ovmf
+Recommends:     squashfs-tools
+Recommends:     veritysetup
 
 %description
 A fancy wrapper around "dnf --installroot", "debootstrap" and
