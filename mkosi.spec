@@ -1,6 +1,6 @@
 Name:           mkosi
 Version:        1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create legacy-free OS images
 
 License:        LGPLv2+
@@ -50,5 +50,8 @@ install -Dpt %{buildroot}%{_bindir}/ mkosi
 %_bindir/mkosi
 
 %changelog
+* Mon Dec 19 2016 Miro Hrončok <mhroncok@redhat.com> - 1-2
+- Rebuild for Python 3.6
+
 * Thu Nov  3 2016 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 1-1
 - Initial version
