@@ -1,6 +1,6 @@
 Name:           mkosi
 Version:        2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create legacy-free OS images
 
 License:        LGPLv2+
@@ -50,6 +50,9 @@ install -Dpt %{buildroot}%{_bindir}/ mkosi
 %_bindir/mkosi
 
 %changelog
+* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Fri Jun 23 2017 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2-1
 - Update to latest version (#1464285)
 
