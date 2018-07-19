@@ -9,9 +9,7 @@ Source0:        https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{v
 Patch0001:	0001-Check-architecture-lazily.patch
 
 BuildArch:      noarch
-
-Requires:       python3 >= 3.5
-# for subprocess.run
+BuildRequires:  python3
 
 Recommends:     dnf
 Recommends:     debootstrap
