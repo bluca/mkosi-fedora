@@ -6,7 +6,6 @@ Summary:        Create legacy-free OS images
 License:        LGPLv2+
 URL:            https://github.com/systemd/mkosi
 Source0:        https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0001:	0001-Check-architecture-lazily.patch
 
 BuildArch:      noarch
 BuildRequires:  python3
