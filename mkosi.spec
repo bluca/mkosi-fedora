@@ -1,6 +1,6 @@
 Name:           mkosi
-Version:        4
-Release:        4%{?dist}
+Version:        5
+Release:        1%{?dist}
 Summary:        Create legacy-free OS images
 
 License:        LGPLv2+
@@ -23,6 +23,7 @@ Recommends:     dosfstools
 Recommends:     e2fsprogs
 Recommends:     squashfs-tools
 Recommends:     veritysetup
+Recommends:     python3dist(argcomplete)
 
 %description
 A fancy wrapper around "dnf --installroot", "debootstrap" and
@@ -54,6 +55,9 @@ install -Dpt %{buildroot}%{_bindir}/ mkosi
 %buildroot/usr/bin/mkosi --help
 
 %changelog
+* Tue Apr 30 2019 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 5-1
+- Update to latest version
+
 * Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
 
