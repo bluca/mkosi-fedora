@@ -10,7 +10,6 @@ Source0:        https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{v
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  pip
 
 Recommends:     dnf
 Recommends:     debootstrap
