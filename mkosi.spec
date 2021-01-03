@@ -11,6 +11,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
+%if 0%{?fedora}
 Recommends:     dnf
 Recommends:     debootstrap
 Recommends:     arch-install-scripts
@@ -24,6 +25,17 @@ Recommends:     e2fsprogs
 Recommends:     squashfs-tools
 Recommends:     veritysetup
 Recommends:     python3dist(argcomplete)
+%else
+Requires:       dnf
+# Requires:       edk2-ovmf
+Requires:       gnupg
+Requires:       xz
+Requires:       tar
+Requires:       btrfs-progs
+Requires:       e2fsprogs
+Requires:       squashfs-tools
+Requires:       veritysetup
+%endif
 
 %description
 A fancy wrapper around "dnf --installroot", "debootstrap" and
