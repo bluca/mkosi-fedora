@@ -1,6 +1,6 @@
 Name:           mkosi
 Version:        9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create legacy-free OS images
 
 License:        LGPLv2+
@@ -69,6 +69,9 @@ supported (not plain MBR/BIOS).
 %buildroot/usr/bin/mkosi --help >/dev/null
 
 %changelog
+* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 9-3
+- Rebuilt for Python 3.10
+
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
