@@ -1,6 +1,6 @@
 Name:           mkosi
 Version:        9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Create legacy-free OS images
 
 License:        LGPLv2+
@@ -11,7 +11,15 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
-%if 0%{?fedora}
+%if 0%{?el7}
+Requires:       dnf
+Requires:       gnupg
+Requires:       xz
+Requires:       tar
+Requires:       e2fsprogs
+Requires:       squashfs-tools
+Requires:       veritysetup
+%else
 Recommends:     dnf
 Recommends:     debootstrap
 Recommends:     arch-install-scripts
@@ -25,16 +33,6 @@ Recommends:     e2fsprogs
 Recommends:     squashfs-tools
 Recommends:     veritysetup
 Recommends:     python3dist(argcomplete)
-%else
-Requires:       dnf
-# Requires:       edk2-ovmf
-Requires:       gnupg
-Requires:       xz
-Requires:       tar
-Requires:       btrfs-progs
-Requires:       e2fsprogs
-Requires:       squashfs-tools
-Requires:       veritysetup
 %endif
 
 %description
@@ -69,6 +67,9 @@ supported (not plain MBR/BIOS).
 %buildroot/usr/bin/mkosi --help >/dev/null
 
 %changelog
+* Fri Jun 11 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 9-4
+- Only gate out Recommends on el7
+
 * Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 9-3
 - Rebuilt for Python 3.10
 
