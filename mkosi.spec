@@ -11,27 +11,21 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
-%if 0%{?el7}
-Requires:       dnf
-Requires:       gnupg
-Requires:       xz
-Requires:       tar
-Requires:       e2fsprogs
-Requires:       squashfs-tools
-Requires:       veritysetup
-%else
-Recommends:     dnf
+%global recoreq %{?el7:Requires}%{!?el7:Recommends}
+
+%{recoreq}:     dnf
+%{recoreq}:     gnupg
+%{recoreq}:     xz
+%{recoreq}:     tar
+%{recoreq}:     e2fsprogs
+%{recoreq}:     squashfs-tools
+%{recoreq}:     veritysetup
+%if 0%{?el7} == 0
 Recommends:     debootstrap
 Recommends:     arch-install-scripts
 Recommends:     edk2-ovmf
-Recommends:     gnupg
-Recommends:     xz
-Recommends:     tar
 Recommends:     btrfs-progs
 Recommends:     dosfstools
-Recommends:     e2fsprogs
-Recommends:     squashfs-tools
-Recommends:     veritysetup
 Recommends:     python3dist(argcomplete)
 %endif
 
