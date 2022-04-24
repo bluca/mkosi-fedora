@@ -7,6 +7,8 @@ License:        LGPLv2+
 URL:            https://github.com/systemd/mkosi
 Source0:        https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch:          0001-py3.11-fix-Enum-formatting-to-work-with-python3.11-a.patch
+
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -34,13 +36,13 @@ Recommends:     python3dist(cryptography)
 %endif
 
 %description
-A fancy wrapper around "dnf --installroot", "debootstrap" and
-"pacstrap", that may generate disk images with a number of bells and
-whistles.
+A fancy wrapper around "dnf --installroot", "debootstrap", "pacman", "zypper",
+"emerge", and "swupd-extract" that may generate disk images with a number of
+bells and whistles.
 
-Generated images are tailed to the purose. This means GPT disk labels
-are used by default, though MBR disk labels are supported, and only
-systemd based images may be generated.
+Generated images are tailed to the purose. This means GPT disk labels are used
+by default, though MBR disk labels are supported, and only systemd based images
+may be generated.
 
 %prep
 %autosetup -p1
