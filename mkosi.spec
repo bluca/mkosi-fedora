@@ -26,7 +26,7 @@ BuildRequires:  systemd
 
 Requires:       bubblewrap
 Requires:       systemd-repart >= 254
-Requires:       systemd-container >= 254
+%{recoreq}:     systemd-container >= 254
 
 %{recoreq}:     binutils
 %{recoreq}:     e2fsprogs
