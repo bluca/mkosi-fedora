@@ -3,6 +3,7 @@
 
 upstream_project_url: https://github.com/systemd/mkosi
 upstream_tag_template: v{version}
+create_sync_note: false
 jobs:
   - job: pull_from_upstream
     trigger: release
