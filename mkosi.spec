@@ -1,5 +1,5 @@
 Name:           mkosi
-Version:        23.1
+Version:        24
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
@@ -126,6 +126,8 @@ tools/make-man-page.sh
 mkdir -p %{buildroot}%{_mandir}/man1
 ln -s -t %{buildroot}%{_mandir}/man1/ \
          ../../../..%{python3_sitelib}/mkosi/resources/mkosi.1
+ln -s -t %{buildroot}%{_mandir}/man1/ \
+         ../../../..%{python3_sitelib}/mkosi/resources/mkosi-initrd.1
 
 # Install the kernel-install plugin
 install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
@@ -140,6 +142,8 @@ mkdir -p %{buildroot}%{_sysconfdir}/mkosi-initrd
 %_mandir/man1/mkosi.1*
 
 %files initrd
+%_bindir/mkosi-initrd
+%_mandir/man1/mkosi-initrd.1*
 %_prefix/lib/kernel/install.d/50-mkosi.install
 %ghost %dir %{_prefix}/lib/mkosi-initrd
 %ghost %dir %{_sysconfdir}/mkosi-initrd
