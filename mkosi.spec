@@ -1,5 +1,5 @@
 Name:           mkosi
-Version:        24
+Version:        24.2
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
@@ -21,9 +21,6 @@ BuildRequires:  pandoc
 Requires:       python3
 Requires:       bubblewrap
 Requires:       coreutils
-
-# for completion
-Recommends:     python3dist(argcomplete)
 
 # for various image building tools (systemd-hwdb, systemd-sysusers, ...)
 Recommends:     systemd
@@ -119,6 +116,10 @@ tools/make-man-page.sh
 
 %pyproject_wheel
 
+bin/mkosi completion bash >mkosi.bash
+bin/mkosi completion fish >mkosi.fish
+bin/mkosi completion zsh >mkosi.zsh
+
 %install
 %pyproject_install
 %pyproject_save_files mkosi
@@ -135,11 +136,19 @@ install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
 mkdir -p %{buildroot}%{_prefix}/lib/mkosi-initrd
 mkdir -p %{buildroot}%{_sysconfdir}/mkosi-initrd
 
+# Install man pages
+install -m0644 -D mkosi.bash %{buildroot}%{bash_completions_dir}/mkosi
+install -m0644 -D mkosi.fish %{buildroot}%{fish_completions_dir}/mkosi.fish
+install -m0644 -D mkosi.zsh %{buildroot}%{zsh_completions_dir}/_mkosi
+
 %files -f %pyproject_files
 %license LICENSE
 %doc README.md
 %_bindir/mkosi
 %_mandir/man1/mkosi.1*
+%{bash_completions_dir}/mkosi
+%{fish_completions_dir}/mkosi.fish
+%{zsh_completions_dir}/_mkosi
 
 %files initrd
 %_bindir/mkosi-initrd
