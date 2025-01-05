@@ -128,7 +128,7 @@ mkdir -p %{buildroot}%{_mandir}/man1
 ln -s -t %{buildroot}%{_mandir}/man1/ \
          ../../../..%{python3_sitelib}/mkosi/resources/mkosi.1
 ln -s -t %{buildroot}%{_mandir}/man1/ \
-         ../../../..%{python3_sitelib}/mkosi/resources/mkosi-initrd.1
+         ../../../..%{python3_sitelib}/mkosi/initrd/resources/mkosi-initrd.1
 
 # Install the kernel-install plugin
 install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
