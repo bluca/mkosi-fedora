@@ -136,14 +136,16 @@ bin/mkosi completion zsh >mkosi.zsh
 
 %if %{undefined suse_version}
 %pyproject_save_files mkosi
-bin/mkosi dependencies | sed -e 's/^/Recommends: /' >%{specpartsdir}/mkosi.specpart
-echo "%package system-deps" >>%{specpartsdir}/mkosi.specpart
-echo "Summary:       Pull in additional dependencies needed to build images" >>%{specpartsdir}/mkosi.specpart
-bin/mkosi dependencies | sed -e 's/^/Requires: /' >>%{specpartsdir}/mkosi.specpart
-echo "Requires:      pesign" >>%{specpartsdir}/mkosi.specpart
-echo "%description system-deps" >>%{specpartsdir}/mkosi.specpart
-echo "This package pulls in all the dependencies needed to build images" >>%{specpartsdir}/mkosi.specpart
-echo "%files system-deps" >>%{specpartsdir}/mkosi.specpart
+{
+  bin/mkosi dependencies | sed -e 's/^/Recommends: /'
+  echo "%package system-deps"
+  echo "Summary:       Pull in additional dependencies needed to build images"
+  bin/mkosi dependencies | sed -e 's/^/Requires: /'
+  echo "Requires:      pesign"
+  echo "%description system-deps"
+  echo "This package pulls in all the dependencies needed to build images"
+  echo "%files system-deps"
+} >%{specpartsdir}/mkosi.specpart
 %else
 # See comment about __brp_compress above
 export NO_BRP_STALE_LINK_ERROR=yes
@@ -154,18 +156,14 @@ export NO_BRP_STALE_LINK_ERROR=yes
 mkdir -p %{buildroot}%{_mandir}/man1
 mkdir -p %{buildroot}%{_mandir}/man7
 ln -s -t %{buildroot}%{_mandir}/man1/ \
-         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi.1
+         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi.1 \
+         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi-sandbox.1 \
+         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi-initrd.1 \
+         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi-addon.1
 ln -s -t %{buildroot}%{_mandir}/man7/ \
          ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi.news.7
-ln -s -t %{buildroot}%{_mandir}/man1/ \
-         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi-sandbox.1
-ln -s -t %{buildroot}%{_mandir}/man1/ \
-         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi-initrd.1
-ln -s -t %{buildroot}%{_mandir}/man1/ \
-         ../../../..%{python3_sitelib}/mkosi/resources/man/mkosi-addon.1
 
 # Install the kernel-install plugins
-
 install -Dt %{buildroot}%{_prefix}/lib/kernel/install.d/ \
          kernel-install/50-mkosi.install
 mkdir -p %{buildroot}%{_prefix}/lib/mkosi-initrd
