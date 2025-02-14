@@ -81,39 +81,6 @@ PE addons for distribution-signed unified kernel images with mkosi locally.
 After the package is installed, the plugin can be enabled by adding
 configuration for the addon to `/etc/mkosi-addon` or `/run/mkosi-addon`.
 
-# TODO: once all supported SUSE builds can use RPM 4.20 drop this and rely
-# on the specpart logic
-%if %{defined suse_version}
-%package system-deps
-Summary:       Pull in additional dependencies needed to build images
-Requires:      %{name} = %{version}-%{release}
-Requires:      python3-pefile
-Requires:      tar
-Requires:      xz
-Requires:      zstd
-Requires:      cpio
-Requires:      kmod
-Requires:      dosfstools
-Requires:      mtools
-Requires:      e2fsprogs
-Requires:      erofs-utils
-Requires:      pesign
-Requires:      mozilla-nss-tools
-Requires:      openssl
-Requires:      jq
-Requires:      createrepo
-Requires:      distribution-gpg-keys
-Requires:      squashfs
-Requires:      systemd-experimental
-Requires:      btrfsprogs
-Requires:      zypper
-
-%description system-deps
-This package pulls in all the dependencies needed to build images with various
-filesystem types, contents and signing with mkosi. It is separate to allow the
-main package to be leaner.
-%endif
-
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
@@ -123,6 +90,10 @@ main package to be leaner.
 %endif
 
 %build
+# For some reason the prep step is broken on SUSE with RPM 4.20 so work around it
+%if %{defined suse_version} && %{with obs}
+/usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/%{name}-%{version}.tar.gz -C /home/abuild/rpmbuild/BUILD/%{name}-%{version}-build/%{name}-%{version}
+%endif
 tools/make-man-page.sh
 
 %pyproject_wheel
@@ -136,6 +107,7 @@ bin/mkosi completion zsh >mkosi.zsh
 
 %if %{undefined suse_version}
 %pyproject_save_files mkosi
+%endif
 {
   bin/mkosi dependencies | sed -e 's/^/Recommends: /'
   echo "%package system-deps"
@@ -146,7 +118,7 @@ bin/mkosi completion zsh >mkosi.zsh
   echo "This package pulls in all the dependencies needed to build images"
   echo "%files system-deps"
 } >%{specpartsdir}/mkosi.specpart
-%else
+%if %{defined suse_version}
 # See comment about __brp_compress above
 export NO_BRP_STALE_LINK_ERROR=yes
 %python_expand %fdupes %{buildroot}/%{$python_sitelib}/mkosi
@@ -226,10 +198,6 @@ install -m0644 -D mkosi.zsh %{buildroot}%{zsh_completions_dir}/_mkosi
 %if %{defined suse_version}
 %dir %_prefix/lib/kernel
 %dir %_prefix/lib/kernel/install.d
-%endif
-
-%if %{defined suse_version}
-%files system-deps
 %endif
 
 %check
