@@ -90,10 +90,6 @@ configuration for the addon to `/etc/mkosi-addon` or `/run/mkosi-addon`.
 %endif
 
 %build
-# For some reason the prep step is broken on SUSE with RPM 4.20 so work around it
-%if %{defined suse_version} && %{with obs}
-/usr/lib/rpm/rpmuncompress -x /home/abuild/rpmbuild/SOURCES/%{name}-%{version}.tar.gz -C /home/abuild/rpmbuild/BUILD/%{name}-%{version}-build/%{name}-%{version}
-%endif
 tools/make-man-page.sh
 
 %pyproject_wheel
