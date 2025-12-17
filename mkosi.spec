@@ -1,11 +1,13 @@
 Name:           mkosi
-Version:        25.3
+Version:        26
 Release:        %autorelease
 Summary:        Create bespoke OS images
 
 License:        LGPL-2.1-or-later
 URL:            https://github.com/systemd/mkosi
 Source:         https://github.com/systemd/mkosi/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch:          0001-verity-do-not-copy-signing-cert-in-addons-portables-.patch
 
 BuildArch:      noarch
 
